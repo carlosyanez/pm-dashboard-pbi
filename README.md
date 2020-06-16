@@ -1,6 +1,9 @@
 # pm-dashboard-pbi
 PM Dashboard - PowerBI version
 
+
+![screenshot](./screenshot.png "Screenshot")
+
 PowerBI version of PM Dasbhoard. It reuses data loading R functions, to load data tables into PowerBI.
 
 To use, download the PowerBI files and :
