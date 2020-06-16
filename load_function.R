@@ -1,3 +1,9 @@
+#command to add in PowerBI
+#source("<FILE LOCATION>/load_function.R", echo = T, prompt.echo = "", spaced = F)
+  
+
+
+
 if (!require("tidyverse")){install.packages("tidyverse")}
 if (!require("lubridate")){install.packages("lubridate")}
 if (!require("shiny")){install.packages("shiny")}
@@ -10,21 +16,32 @@ if (!require("readxl")) {install.packages("readxl")}
 library(tidyverse)
 library(readxl)
 
-#source("C:/Users/carlos/Documents/PMDashboard/load_function.R", echo = T, prompt.echo = "", spaced = F)
+file_location <-"C:/Users/carlos/Documents/PMDashboard/"
 
+setwd(file_location)
 
-setwd("C:/Users/carlos/Documents/PMDashboard/")
+source(paste(file_location,"r/variables.R",sep=""), echo = F, prompt.echo = "", spaced = F)
 
-source("C:/Users/carlos/Documents/PMDashboard/r/variables.R", echo = F, prompt.echo = "", spaced = F)
 app_vars$source_system <- "Demo"
 
-app_vars$demo_files <- paste("C:/Users/carlos/Documents/PMDashboard",app_vars$demo_files,sep="")
+app_vars$excel_files <- paste(file_location,app_vars$excel_files,sep="")
+app_vars$demo_files <- paste(file_location,app_vars$demo_files,sep="")
 
-source("C:/Users/carlos/Documents/PMDashboard/r/eval.R", echo = F, prompt.echo = "", spaced = F)
-source("C:/Users/carlos/Documents/PMDashboard/r/data_loader.R", echo = F, prompt.echo = "", spaced = F)
+source(paste(file_location,"r/eval.R",sep=""), echo = F, prompt.echo = "", spaced = F)
+source(paste(file_location,"r/data_loader.R",sep=""), echo = F, prompt.echo = "", spaced = F)
 
-output <- normalised_data
+presentation_data <- eval_data(normalised_data,app_vars)
 
+tasks_p <- presentation_data$tasks
+updates_p <- presentation_data$updates
+issues_p <-  presentation_data$issues
+actions_p <- presentation_data$actions
+projects_p <- presentation_data$projects
+consolidated_p <- presentation_data$t.consolidated_tasks
 
+status_colour_R <-  app_vars$status_colour %>% filter(colour_short=="R")
+status_colour_A <-  app_vars$status_colour %>% filter(colour_short=="A")
+status_colour_G <-  app_vars$status_colour %>% filter(colour_short=="G")
+status_colour_gr <-  app_vars$status_colour %>% filter(colour_short=="g")
 
 
